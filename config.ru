@@ -1,9 +1,11 @@
 require 'grape'
 require 'active_record'
+require_relative "config/environment"
 require_relative "api/task"
 
-Dir[File.expand_path('config/*.rb', __dir__)].each do |f|
-  require f
-end
+
+use OTR::ActiveRecord::ConnectionManagement
+# Enable ActiveRecord's QueryCache for every request (optional)
+use OTR::ActiveRecord::QueryCache
 
 run Task::API

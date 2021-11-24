@@ -3,7 +3,7 @@ class CreateStocks < ActiveRecord::Migration[6.1]
     create_table :stocks do |t|
       t.string :name
       t.index :name, unique: true
-      t.boolean :is_deleted
+      t.boolean :is_deleted, default: false
       t.index :is_deleted
       t.references :bearer, foreign_key: :true
       t.timestamps
