@@ -7,5 +7,9 @@ module Task
     get '/ping' do
       { ping: 'pong' }
     end
+    get '/stocks' do
+      stocks = Stock.all
+      present stocks
+    end
   end
 end
