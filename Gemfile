@@ -4,6 +4,7 @@ gem 'grape'
 gem "otr-activerecord"
 gem 'sqlite3'
 gem 'rake'
+gem 'grape-jsonapi', require: "grape_jsonapi"
 
 group :test  do
   gem "rspec"
