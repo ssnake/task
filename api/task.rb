@@ -12,7 +12,7 @@ module Task
 
     get '/stocks' do
       stocks = Stock.all
-      render stocks, include: [:bearer]
+      render stocks# include: [:bearer]
     end
   end
 end

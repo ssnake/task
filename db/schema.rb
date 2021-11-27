@@ -12,13 +12,13 @@
 
 ActiveRecord::Schema.define(version: 2021_11_27_075132) do
 
-  create_table "bearer_stock_assocation", force: :cascade do |t|
+  create_table "bearer_stock_associations", force: :cascade do |t|
     t.integer "bearer_id"
-    t.integer "stocks_id"
+    t.integer "stock_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["bearer_id"], name: "index_bearer_stock_assocation_on_bearer_id"
-    t.index ["stocks_id"], name: "index_bearer_stock_assocation_on_stocks_id"
+    t.index ["bearer_id"], name: "index_bearer_stock_associations_on_bearer_id"
+    t.index ["stock_id"], name: "index_bearer_stock_associations_on_stock_id"
   end
 
   create_table "bearers", force: :cascade do |t|
@@ -37,6 +37,6 @@ ActiveRecord::Schema.define(version: 2021_11_27_075132) do
     t.index ["name"], name: "index_stocks_on_name", unique: true
   end
 
-  add_foreign_key "bearer_stock_assocation", "bearers"
-  add_foreign_key "bearer_stock_assocation", "stocks", column: "stocks_id"
+  add_foreign_key "bearer_stock_associations", "bearers"
+  add_foreign_key "bearer_stock_associations", "stocks"
 end

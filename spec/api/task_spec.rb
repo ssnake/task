@@ -19,6 +19,8 @@ RSpec.describe Task::API do
   context "with full db" do
     let!(:bearer1) { create(:bearer)}
     let!(:bearer2) { create(:bearer)}
+    let!(:stocks) {create_list(:stock, 5)}
+
     describe "#stocks" do
     
       it "returns a list of stocks" do

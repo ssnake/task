@@ -1,6 +1,6 @@
 class StockSerializer
   include JSONAPI::Serializer
   set_type :stock
-  belongs_to :bearer
+  has_many :bearers, through: :bearer_stock_associations
   attributes :name
 end
