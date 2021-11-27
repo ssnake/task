@@ -15,13 +15,16 @@ RSpec.describe Task::API do
       end
     end
   end
-  describe "#stocks" do
-    context "with full db" do
-      let!(:bearers) { create_list(:bearer, 5)}
+
+  context "with full db" do
+    let!(:bearer1) { create(:bearer)}
+    let!(:bearer2) { create(:bearer)}
+    describe "#stocks" do
+    
       it "returns a list of stocks" do
         get '/api/v1/stocks'
         expect(last_response.status).to eq(200)
-        expect(JSON.parse(last_response.body)).to eq({"ping"=>"pong"})
+        expect(JSON.parse(last_response.body)).to eq({})
       end 
     end
   end
