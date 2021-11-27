@@ -50,6 +50,8 @@ GEM
     grape-jsonapi (1.0.0)
       grape
       jsonapi-serializer
+    grape-swagger (1.4.2)
+      grape (~> 1.3)
     hashie (5.0.0)
     hashie-forbidden_attributes (0.1.1)
       hashie (>= 3.0)
@@ -68,6 +70,8 @@ GEM
     rack (2.2.3)
     rack-accept (0.4.5)
       rack (>= 0.4)
+    rack-contrib (2.3.0)
+      rack (~> 2.0)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rake (13.0.6)
@@ -99,7 +103,9 @@ DEPENDENCIES
   factory_bot
   grape
   grape-jsonapi
+  grape-swagger
   otr-activerecord
+  rack-contrib
   rack-test
   rake
   rspec

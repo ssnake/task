@@ -1,3 +1,4 @@
+require 'grape-swagger'
 require_relative "ping"
 require_relative "stocks"
 
@@ -12,5 +13,12 @@ module Task
 
     mount ::Ping::API
     mount ::Stocks::API
+
+    add_swagger_documentation hide_documentation_path: true,
+                              api_version: 'v1',
+                              info: {
+                                title: 'Task Application',
+                                description: 'This app is implemented features provided in task desc'
+                              }
   end
 end
