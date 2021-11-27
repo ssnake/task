@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_24_072918) do
+ActiveRecord::Schema.define(version: 2021_11_27_075132) do
+
+  create_table "bearer_stock_assocation", force: :cascade do |t|
+    t.integer "bearer_id"
+    t.integer "stocks_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["bearer_id"], name: "index_bearer_stock_assocation_on_bearer_id"
+    t.index ["stocks_id"], name: "index_bearer_stock_assocation_on_stocks_id"
+  end
 
   create_table "bearers", force: :cascade do |t|
     t.string "name"
@@ -22,13 +31,12 @@ ActiveRecord::Schema.define(version: 2021_11_24_072918) do
   create_table "stocks", force: :cascade do |t|
     t.string "name"
     t.boolean "is_deleted", default: false
-    t.integer "bearer_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["bearer_id"], name: "index_stocks_on_bearer_id"
     t.index ["is_deleted"], name: "index_stocks_on_is_deleted"
     t.index ["name"], name: "index_stocks_on_name", unique: true
   end
 
-  add_foreign_key "stocks", "bearers"
+  add_foreign_key "bearer_stock_assocation", "bearers"
+  add_foreign_key "bearer_stock_assocation", "stocks", column: "stocks_id"
 end
