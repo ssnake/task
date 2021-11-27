@@ -1,4 +1,4 @@
-bearer = Bearer.create_or_find_by name: "test_bearer"
-stock_1 = Stock.create_or_find_by name: "test_stock_1", bearer: bearer
-stock_2 = Stock.create_or_find_by name: "test_stock_2", bearer: bearer
-stock_3 = Stock.create_or_find_by name: "test_stock_3", bearer: bearer
+bearer = Bearer.find_or_create_by name: "test_bearer"
+stock_1 = Stock.find_or_create_by name: "test_stock_1"
+stock_2 = Stock.find_or_create_by name: "test_stock_2"
+stock_3 = Stock.find_or_create_by name: "test_stock_3"
