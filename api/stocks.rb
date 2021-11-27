@@ -1,7 +1,6 @@
 require_relative "ping"
-require_relative "stocks"
 
-module Task
+module Stocks
   class API < Grape::API
     version 'v1'
     prefix :api
@@ -10,7 +9,17 @@ module Task
     formatter :jsonapi, Grape::Formatter::Jsonapi
     default_format :jsonapi
 
-    mount ::Ping::API
-    mount ::Stocks::API
+    
+    namespace :stocks do
+      
+      get :index do
+        stocks = Stock.all
+        render stocks# include: [:bearer]
+      end
+
+      post :create do
+
+      end
+    end
   end
 end

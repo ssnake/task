@@ -6,6 +6,7 @@ RSpec.describe Task::API do
   def app
     Task::API
   end
+
   describe "#ping" do
     context 'GET /api/v1/ping' do
       it 'returns pong' do
@@ -21,10 +22,17 @@ RSpec.describe Task::API do
     let!(:bearer2) { create(:bearer)}
     let!(:stocks) {create_list(:stock, 5)}
 
+    before do
+      BearerStockAssociation.create bearer: bearer1, stock: stocks[0]
+      BearerStockAssociation.create bearer: bearer1, stock: stocks[1]
+      BearerStockAssociation.create bearer: bearer1, stock: stocks[2]
+      BearerStockAssociation.create bearer: bearer2, stock: stocks[0]
+    end
+
     describe "#stocks" do
     
       it "returns a list of stocks" do
-        get '/api/v1/stocks'
+        get '/api/v1/stocks/index'
         expect(last_response.status).to eq(200)
         expect(JSON.parse(last_response.body)).to eq({})
       end 

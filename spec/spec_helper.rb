@@ -9,7 +9,6 @@ $LOAD_PATH.unshift(
 )
 ENV["RACK_ENV"] ||= "test"
 require "environment"
-require "task"
 
 DatabaseCleaner.strategy = :transaction
 
@@ -21,7 +20,7 @@ RSpec.configure do |config|
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with(:truncation)
   end
-  
+
   config.around(:each) do |example|
     DatabaseCleaner.cleaning do
       example.run
