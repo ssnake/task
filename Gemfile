@@ -9,6 +9,7 @@ gem 'grape-jsonapi', require: "grape_jsonapi"
 group :test  do
   gem "rspec"
   gem "rack-test"
+  gem 'factory_bot'
 end
 group :development, :test do
   gem "byebug"

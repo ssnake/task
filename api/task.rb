@@ -11,7 +11,7 @@ module Task
     end
 
     get '/stocks' do
-      stocks = Stock.all.first
+      stocks = Stock.all
       render stocks, include: [:bearer]
     end
   end
