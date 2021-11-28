@@ -19,7 +19,7 @@ module Stocks
 
       get :index do
         stocks = Stock.all
-        render stocks, include: [:bearer]
+        render stocks, include: [:bearers]
       end
     
       params do

@@ -34,7 +34,10 @@ RSpec.describe Task::API do
       it "returns a list of stocks" do
         get '/api/v1/stocks/index'
         expect(last_response.status).to eq(200)
-        expect(JSON.parse(last_response.body)).to eq({})
+        response = JSON.parse(last_response.body)
+        expect(response).to include("data")
+        expect(response["data"].first).to include("type")
+        expect(response["data"].first["type"]).to eq("stock")
       end 
     end
 
