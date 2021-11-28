@@ -15,6 +15,7 @@ group :test do
   gem 'factory_bot'
   gem 'rack-test'
   gem 'rspec'
+  gem 'simplecov', require: false
 end
 group :development, :test do
   gem 'byebug'
