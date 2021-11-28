@@ -33,10 +33,25 @@ module Stocks
       format :json
       desc 'creates new stock and new bearer'
       post :create do
-        bearer = Bearer.find_or_create_by name: params.stock.bearer_name
-        stock = Stock.find_or_create_by name: params.stock.name
+        bearer = Bearer.find_or_create_by name: declared(params).stock.bearer_name
+        stock = Stock.find_or_create_by name: declared(params).stock.name
         BearerStockAssociation.find_or_create_by bearer: bearer, stock: stock
         render stock, include: [:bearers]
+      end
+
+
+      desc 'Update a stock.'
+      params do
+        requires :id, type: String, desc: 'Stock ID.' 
+        requires :name, type: String, desc: 'Stock name', documentation: { param_type: 'body' }
+      end
+
+      put ':id' do
+        if stock = Stock.find_by(id: declared(params).id)
+          stock.update!(declared(params))
+        else
+          status 404
+        end
       end
     end
   end

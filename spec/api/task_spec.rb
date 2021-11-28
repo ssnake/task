@@ -88,5 +88,31 @@ RSpec.describe Task::API do
         end
       end
     end
+    describe "#put" do
+      let(:stock) {stocks.first}
+      let(:name) { "new stock name"}
+      let(:body) {
+        { name: name}
+      }
+      
+      it "changes name to new one" do
+        expect do
+          put "/api/v1/stocks/#{stock.id}", body.to_json, 'CONTENT_TYPE' => 'application/json'
+        end.to change {stock.reload.name}
+         expect(last_response.status).to eq(200)
+      end
+
+      it "uses wrong id" do
+        put "/api/v1/stocks/#{stock.id+1000}", body.to_json, 'CONTENT_TYPE' => 'application/json'
+        expect(last_response.status).to eq(404)
+      end
+      context "with already existed name" do
+        let(:name) {stocks.last.name}
+        it "won't update stock name to existed one" do
+          put "/api/v1/stocks/#{stock.id}", body.to_json, 'CONTENT_TYPE' => 'application/json'
+          expect(last_response.status).to eq(500)
+        end
+      end
+    end
   end
 end
