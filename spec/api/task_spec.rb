@@ -81,9 +81,9 @@ RSpec.describe Task::API do
             expect do
               post '/api/v1/stocks/create', body.to_json, 'CONTENT_TYPE' => 'application/json'
               expect(last_response.status).to eq(201)
-            end.to change { Stock.count }.by(0)
-                                         .and change { Bearer.count }.by(0)
-                                                                     .and change { BearerStockAssociation.count }.by(0)
+            end.to(change { Stock.count }.by(0)
+              .and(change { Bearer.count }.by(0))
+              .and(change { BearerStockAssociation.count }.by(0)))
           end
         end
       end
