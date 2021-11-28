@@ -114,5 +114,28 @@ RSpec.describe Task::API do
         end
       end
     end
+    describe "#delete" do
+      let(:stock) {stocks.first}
+      it "deletes stock" do
+        expect do
+          delete "/api/v1/stocks/#{stock.id}"
+        end.to change{ stock.reload.is_deleted}
+      end
+      it "deletes stock and it dissapears from list" do
+        get '/api/v1/stocks/index'
+        response = JSON.parse(last_response.body)
+        count = response["data"].count
+        delete "/api/v1/stocks/#{stock.id}"
+        get '/api/v1/stocks/index'
+        response = JSON.parse(last_response.body)
+        count2 = response["data"].count
+        expect(count - 1).to eq(count2)
+      end
+
+      it "tries to delete unexisting stock" do
+        delete "/api/v1/stocks/#{stock.id+1000}"
+        expect(last_response.status).to eq(404)
+      end
+    end
   end
 end

@@ -19,7 +19,7 @@ module Stocks
 
     namespace :stocks do
       get :index do
-        stocks = Stock.all
+        stocks = Stock.where(is_deleted: false).all
         render stocks, include: [:bearers]
       end
 
@@ -40,9 +40,9 @@ module Stocks
       end
 
 
-      desc 'Update a stock.'
+      desc 'Update a stock'
       params do
-        requires :id, type: String, desc: 'Stock ID.' 
+        requires :id, type: String, desc: 'Stock ID' 
         requires :name, type: String, desc: 'Stock name', documentation: { param_type: 'body' }
       end
 
@@ -53,6 +53,20 @@ module Stocks
           status 404
         end
       end
+
+      desc 'Delete a stock'
+      params do
+        requires :id, type: String, desc: 'Stock ID'
+      end
+
+      delete ':id' do
+        if stock = Stock.find_by(id: declared(params).id)
+          stock.update!(is_deleted: true)
+        else
+          status 404
+        end
+      end
+
     end
   end
 end
