@@ -27,4 +27,4 @@ rspec
 bundle exec rackup
 ```
 
-Got to http://localhost:9292 you should see Swagger-UI
+Go to http://localhost:9292 you should see Swagger-UI
