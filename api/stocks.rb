@@ -14,20 +14,23 @@ module Stocks
     
     default_format :jsonapi
     
-    params do
-      optional :stock, type: Hash do
-        optional :name, type: String
-        optional :bearer_name, type: String
-      end
-    end
-
+    
     namespace :stocks do
 
       get :index do
         stocks = Stock.all
-        render stocks# include: [:bearer]
+        render stocks, include: [:bearer]
+      end
+    
+      params do
+        optional :stock, type: Hash, documentation: {param_type: 'body'} do
+          optional :name, type: String
+          optional :bearer_name, type: String
+        end
       end
 
+      format :json
+      desc "creates new stock and new bearer"
       post :create do
         bearer = Bearer.find_or_create_by name: params.stock.bearer_name
         stock = Stock.find_or_create_by name: params.stock.name

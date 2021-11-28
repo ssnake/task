@@ -2,8 +2,9 @@ module Ping
   class API < Grape::API
     version 'v1'
     prefix :api
+    content_type :json, 'application/json'
+    default_format :json
     
-    default_format :jsonapi
     get '/ping' do
       { ping: 'pong' }
     end
