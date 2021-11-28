@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class BearerStockAssociationSerializer
   include JSONAPI::Serializer
   set_type :bearer_stock_assocation
