@@ -17,7 +17,7 @@ module Stocks
 
     default_format :jsonapi
 
-    namespace :stocks do
+    namespace :stocks do # rubocop:disable Metrics/BlockLength
       get :index do
         stocks = Stock.where(is_deleted: false).all
         render stocks, include: [:bearers]
@@ -39,15 +39,14 @@ module Stocks
         render stock, include: [:bearers]
       end
 
-
       desc 'Update a stock'
       params do
-        requires :id, type: String, desc: 'Stock ID' 
+        requires :id, type: String, desc: 'Stock ID'
         requires :name, type: String, desc: 'Stock name', documentation: { param_type: 'body' }
       end
 
       put ':id' do
-        if stock = Stock.find_by(id: declared(params).id)
+        if (stock = Stock.find_by(id: declared(params).id))
           stock.update!(declared(params))
         else
           status 404
@@ -60,13 +59,12 @@ module Stocks
       end
 
       delete ':id' do
-        if stock = Stock.find_by(id: declared(params).id)
+        if (stock = Stock.find_by(id: declared(params).id))
           stock.update!(is_deleted: true)
         else
           status 404
         end
       end
-
     end
   end
 end

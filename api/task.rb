@@ -13,9 +13,9 @@ module Task
     formatter :json, Grape::Formatter::Jsonapi
     formatter :jsonapi, Grape::Formatter::Jsonapi
     default_format :jsonapi
-    
+
     rescue_from :all do |e|
-      error!({data: {error: e.message} }, 500, { 'Content-Type' => 'application/vnd.api+json' })
+      error!({ data: { error: e.message } }, 500, { 'Content-Type' => 'application/vnd.api+json' })
     end
 
     mount ::Ping::API
@@ -27,6 +27,5 @@ module Task
                                 title: 'Task Application',
                                 description: 'This app is implemented features provided in task desc'
                               }
-   
   end
 end

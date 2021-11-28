@@ -88,52 +88,52 @@ RSpec.describe Task::API do
         end
       end
     end
-    describe "#put" do
-      let(:stock) {stocks.first}
-      let(:name) { "new stock name"}
-      let(:body) {
-        { name: name}
-      }
-      
-      it "changes name to new one" do
-        expect do
-          put "/api/v1/stocks/#{stock.id}", body.to_json, 'CONTENT_TYPE' => 'application/json'
-        end.to change {stock.reload.name}
-         expect(last_response.status).to eq(200)
+    describe '#put' do
+      let(:stock) { stocks.first }
+      let(:name) { 'new stock name' }
+      let(:body) do
+        { name: name }
       end
 
-      it "uses wrong id" do
-        put "/api/v1/stocks/#{stock.id+1000}", body.to_json, 'CONTENT_TYPE' => 'application/json'
+      it 'changes name to new one' do
+        expect do
+          put "/api/v1/stocks/#{stock.id}", body.to_json, 'CONTENT_TYPE' => 'application/json'
+        end.to(change { stock.reload.name })
+        expect(last_response.status).to eq(200)
+      end
+
+      it 'uses wrong id' do
+        put "/api/v1/stocks/#{stock.id + 1000}", body.to_json, 'CONTENT_TYPE' => 'application/json'
         expect(last_response.status).to eq(404)
       end
-      context "with already existed name" do
-        let(:name) {stocks.last.name}
+      context 'with already existed name' do
+        let(:name) { stocks.last.name }
         it "won't update stock name to existed one" do
           put "/api/v1/stocks/#{stock.id}", body.to_json, 'CONTENT_TYPE' => 'application/json'
           expect(last_response.status).to eq(500)
         end
       end
     end
-    describe "#delete" do
-      let(:stock) {stocks.first}
-      it "deletes stock" do
+    describe '#delete' do
+      let(:stock) { stocks.first }
+      it 'deletes stock' do
         expect do
           delete "/api/v1/stocks/#{stock.id}"
-        end.to change{ stock.reload.is_deleted}
+        end.to(change { stock.reload.is_deleted })
       end
-      it "deletes stock and it dissapears from list" do
+      it 'deletes stock and it dissapears from list' do
         get '/api/v1/stocks/index'
         response = JSON.parse(last_response.body)
-        count = response["data"].count
+        count = response['data'].count
         delete "/api/v1/stocks/#{stock.id}"
         get '/api/v1/stocks/index'
         response = JSON.parse(last_response.body)
-        count2 = response["data"].count
+        count2 = response['data'].count
         expect(count - 1).to eq(count2)
       end
 
-      it "tries to delete unexisting stock" do
-        delete "/api/v1/stocks/#{stock.id+1000}"
+      it 'tries to delete unexisting stock' do
+        delete "/api/v1/stocks/#{stock.id + 1000}"
         expect(last_response.status).to eq(404)
       end
     end
