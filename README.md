@@ -18,13 +18,14 @@ $ rake db:seed
 ## Test
 
 ```
-rspec
+$ RACK_ENV=test rake db:migrate
+$ rspec
 ```
 
 ## Start app
 
 ```
-bundle exec rackup
+$ bundle exec rackup
 ```
 
 Go to http://localhost:9292 you should see Swagger-UI. User is `test` and password is `test`.
