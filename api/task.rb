@@ -18,6 +18,12 @@ module Task
       error!({ data: { error: e.message } }, 500, { 'Content-Type' => 'application/vnd.api+json' })
     end
 
+    ENV['RACK_ENV'] != 'test' && http_basic do |username, password|
+      Rack::Utils.secure_compare(username, 'test') && 
+      Rack::Utils.secure_compare(password, 'test')
+    end
+    
+
     mount ::Ping::API
     mount ::Stocks::API
 

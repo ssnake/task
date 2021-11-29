@@ -27,4 +27,5 @@ rspec
 bundle exec rackup
 ```
 
-Go to http://localhost:9292 you should see Swagger-UI
+Go to http://localhost:9292 you should see Swagger-UI. User is `test` and password is `test`.
+
