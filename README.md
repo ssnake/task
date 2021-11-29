@@ -3,7 +3,7 @@ Demo Task App
 
 This demo app for the test task.
 
-It implements business logic described in [here](https://gist.github.com/stevermeister/ae24e05a8f312e8a779bf3110a290e3d)
+It implements business logic described [here](https://gist.github.com/stevermeister/ae24e05a8f312e8a779bf3110a290e3d)
 
 Before start make sure that your system has `sqlite3` installed
 
